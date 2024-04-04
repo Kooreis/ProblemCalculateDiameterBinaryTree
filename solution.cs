@@ -1,13 +1,32 @@
-using System;
-
-public class Node
+public class BinaryTree
 {
-    public int data;
-    public Node left, right;
+    public Node root;
 
-    public Node(int item)
+    int diameter(Node tree)
     {
-        data = item;
-        left = right = null;
+        if (tree == null)
+            return 0;
+
+        int lheight = height(tree.left);
+        int rheight = height(tree.right);
+
+        int ldiameter = diameter(tree.left);
+        int rdiameter = diameter(tree.right);
+
+        return Math.Max(lheight + rheight + 1,
+                        Math.Max(ldiameter, rdiameter));
+    }
+
+    int diameter()
+    {
+        return diameter(root);
+    }
+
+    static int height(Node node)
+    {
+        if (node == null)
+            return 0;
+
+        return (1 + Math.Max(height(node.left), height(node.right)));
     }
 }
